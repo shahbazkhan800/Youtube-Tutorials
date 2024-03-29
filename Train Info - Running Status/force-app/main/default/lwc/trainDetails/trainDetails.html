@@ -1,0 +1,30 @@
+<template>
+		
+	<lightning-card title="Train Info-Running Status" variant="narrow" icon-name="custom:custom36">
+			<div class="slds-p-around_small">
+				<lightning-input type="text" required="true" label="Enter Train Number" onchange={handleInputChange}  placeholder="e.g 12312, 12302, 12704, 12321, 12303......"></lightning-input>
+			</div>
+			<div class="slds-p-around_small slds-p-left_large">
+				<lightning-button label="Get Train Info" variant="Brand" onclick={handleTrainInfo}></lightning-button>
+			</div>
+
+			<template lwc:if = {showSpinner}> 
+				<lightning-spinner alternative-text="Loading"></lightning-spinner>
+			</template>
+			
+			<template lwc:if = {showTrainDetails}>
+			<div class="slds-p-left_small">
+					<div class="slds-text-heading_large slds-text-color_success">{trainDetails.train_name}</div>
+					<div class="slds-text-title">{trainDetails.updated_time}</div>
+							<div class="slds-p-top_x-small" style="height: 300px;">
+								<lightning-datatable
+									key-field="train_name"
+									data={trainDetails.data}
+									columns={columns}
+									hide-checkbox-column="true">
+								</lightning-datatable>
+							</div>
+			</div>
+			</template>
+	</lightning-card>
+</template>
