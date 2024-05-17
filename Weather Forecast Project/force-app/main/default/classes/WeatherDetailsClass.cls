@@ -3,7 +3,7 @@ public class WeatherDetailsClass {
     public static WeatherDetailsWrapper getWeatherDetails(String cityName){
         //Frame the Enpoint URL
         String apiKey = 'ab4a188555840adac4da0dcd68d4cf95';
-        String endpoint = 'https://api.openweathermap.org/data/2.5/weather';
+        String endpoint = 'http://api.openweathermap.org/data/2.5/weather';
         endpoint += '?q='+cityName;
         endpoint += '&units=metric';
         endpoint += '&APPID='+apiKey;
