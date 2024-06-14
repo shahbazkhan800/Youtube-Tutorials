@@ -36,7 +36,7 @@ export default class TrainDetails extends LightningElement {
 				})
 				.catch((error) =>{
 						this.showTrainDetails = false;
-						console.log('Some error occurred while fetching weather details');
+						console.log('Some error occurred while fetching train details');
 				});
 		}
 }
