@@ -1,5 +1,7 @@
+
 import { LightningElement } from 'lwc';
-import getTrainDetails from '@salesforce/apex/TrainDetails.getTrainDetails'
+import getTrainDetails from '@salesforce/apex/TrainDetails.getTrainDetails';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 const columns = [
     { label: 'Station Name', fieldName: 'station_name' },
@@ -29,14 +31,26 @@ export default class TrainDetails extends LightningElement {
 				//console.log('inputTrainNo '+this.inputTrainNo);
 				getTrainDetails({trainNo : this.inputTrainNo})
 				.then((result) => {
-						this.showSpinner = false;
+					this.showSpinner = false;
+					if(Object.keys(result).length > 0){
 						this.showTrainDetails = true;
 						this.trainDetails = result;
-						//console.log('trainDetails '+JSON.stringify(this.trainDetails));
+						console.log('trainDetails '+JSON.stringify(this.trainDetails));
+					}
+					else{
+							const event = new ShowToastEvent({
+							title: 'Invalid Train Number',
+							message: 'No trains exist with train number '+this.inputTrainNo,
+							variant: 'error',
+							mode: 'dismissable'
+							});
+							this.dispatchEvent(event);
+					}
+						
 				})
 				.catch((error) =>{
 						this.showTrainDetails = false;
-						console.log('Some error occurred while fetching train details');
+						console.log('Some error occurred while fetching train details'+JSON.stringify(error));
 				});
 		}
 }
